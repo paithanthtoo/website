@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulip Garden Proposal</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        .garden {
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+            justify-content: space-around;
+        }
+        /* Single Tulip */
+        .tulip {
+            position: relative;
+            width: 6px;
+            height: 150px;
+            background-color: #228B22;
+            margin: 20px 10px;
+            animation: growStem 2s ease forwards;
+            transform-origin: bottom;
+        }
+        /* Flower Petals */
+        .petal {
+            width: 30px;
+            height: 80px;
+            background-color: #ff6347;
+            position: absolute;
+            border-radius: 50% 50% 0 0;
+            top: -70px;
+            opacity: 0;
+            transform-origin: bottom center;
+        }
+        .petal-left {
+            left: -20px;
+            transform: rotate(-45deg);
+        }
+        .petal-right {
+            right: -20px;
+            transform: rotate(45deg);
+        }
+        .center-petal {
+            top: -75px;
+            left: -10px;
+        }
+        /* Leaf */
+        .leaf {
+            width: 10px;
+            height: 50px;
+            background-color: #228B22;
+            position: absolute;
+            border-radius: 50% 50% 0 0;
+            top: 60px;
+            left: -20px;
+            transform: rotate(-45deg);
+            transform-origin: bottom right;
+            opacity: 0;
+        }
+        /* Animations */
+        @keyframes growStem {
+            from { height: 0; }
+            to { height: 150px; }
+        }
+        @keyframes growPetal {
+            from { opacity: 0; transform: scale(0); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes growLeaf {
+            from { opacity: 0; transform: scale(0); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        /* Proposal Message */
+        .message {
+            opacity: 0;
+            font-size: 2rem;
+            color: #333;
+            animation: showMessage 1.5s ease 5s forwards;
+            text-align: center;
+            margin-top: 20px;
+        }
+        @keyframes showMessage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="garden"></div>
+    <div class="message">Will you be my forever tulip? 🌷💍</div>
+
+    <script>
+        // Function to create a tulip
+        function createTulip() {
+            const tulip = document.createElement('div');
+            tulip.classList.add('tulip');
+            
+            // Petals
+            const petalLeft = document.createElement('div');
+            petalLeft.classList.add('petal', 'petal-left');
+            tulip.appendChild(petalLeft);
+
+            const petalRight = document.createElement('div');
+            petalRight.classList.add('petal', 'petal-right');
+            tulip.appendChild(petalRight);
+
+            const centerPetal = document.createElement('div');
+            centerPetal.classList.add('petal', 'center-petal');
+            tulip.appendChild(centerPetal);
+
+            // Leaf
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            tulip.appendChild(leaf);
+
+            // Adding petal animations with delay
+            setTimeout(() => {
+                petalLeft.style.animation = 'growPetal 1s ease forwards';
+                petalRight.style.animation = 'growPetal 1s ease forwards';
+                centerPetal.style.animation = 'growPetal 1s ease forwards';
+                leaf.style.animation = 'growLeaf 1.5s ease forwards';
+            }, Math.random() * 2000); // Random delay for natural effect
+
+            return tulip;
+        }
+
+        // Function to populate the garden with tulips
+        function createGarden(numTulips) {
+            const garden = document.querySelector('.garden');
+            for (let i = 0; i < numTulips; i++) {
+                const tulip = createTulip();
+                garden.appendChild(tulip);
+            }
+        }
+
+        // Initialize the garden with 20 tulips
+        createGarden(20);
+    </script>
+</body>
+</html>
